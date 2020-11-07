@@ -1,27 +1,30 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import Home from './Home';
+import { Router, Route, Switch } from 'react-router-dom';
+import StreamList from './streams/StreamList';
 import CreateStream from './streams/CreateStream';
 import DeleteStream from './streams/DeleteStream';
 import EditStream from './streams/EditStream';
 import ViewStream from './streams/ViewStream';
 import NavBar from './NavBar';
+import history from '../history';
 
 const App = () => {
   return (
     <div className="ui container">
-      <BrowserRouter>
+      <Router history={history}>
         <div>
           <NavBar />
-          <Route path="/" exact component={Home} />
-          <Route path="/streams/new" exact component={CreateStream} />
-          <Route path="/streams/edit" exact component={EditStream} />
-          <Route path="/streams/delete" exact component={DeleteStream} />
-          <Route path="/streams/view" exact component={ViewStream} />
+          <Switch>
+            <Route path="/" exact component={StreamList} />
+            <Route path="/streams/new" exact component={CreateStream} />
+            <Route path="/streams/edit/:id" exact component={EditStream} />
+            <Route path="/streams/delete/:id" exact component={DeleteStream} />
+            <Route path="/streams/:id" exact component={ViewStream} />
+          </Switch>
         </div>
-      </BrowserRouter>
+      </Router>
     </div>
-  )
+  );
 };
 
 export default App;

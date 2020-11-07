@@ -1,7 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { getStream } from '../../actions';
 
-const ViewStream = () => {
-  return <div>ViewStream</div>;
-};
+class ViewStream extends React.Component {
+  componentDidMount() {
+    this.props.getStream(this.props.match.params.id);
+  }
 
-export default ViewStream;
+  render() {
+    return <div>ViewStream</div>;
+  }
+}
+
+export default connect(null, { getStream })(ViewStream);
