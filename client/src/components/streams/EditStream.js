@@ -7,6 +7,7 @@ import StreamForm from './StreamForm';
 class EditStream extends React.Component {
   componentDidMount() {
     this.props.getStream(this.props.match.params.id);
+    console.log(this.props.match.params);
   }
 
   onSubmit = (formValues) => {

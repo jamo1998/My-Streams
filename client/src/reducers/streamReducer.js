@@ -10,13 +10,13 @@ import {
 export default (state = {}, action) => {
   switch (action.type) {
     case GET_ALL_STREAMS:
-      return { ...state, ..._.mapKeys(action.payload, 'id') };
+      return action.payload;
     case GET_STREAM:
-      return { ...state, [action.payload.id]: action.payload };
+      return { ...state, [action.payload._id]: action.payload };
     case CREATE_STREAM:
-      return { ...state, [action.payload.id]: action.payload };
+      return { ...state, [action.payload._id]: action.payload };
     case UPDATE_STREAM:
-      return { ...state, [action.payload.id]: action.payload };
+      return { ...state, [action.payload._id]: action.payload };
     case DELETE_STREAM:
       return _.omit(state, action.payload);
     default:

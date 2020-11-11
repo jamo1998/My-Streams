@@ -12,15 +12,16 @@ class DeleteStream extends React.Component {
   }
 
   renderActions() {
+    console.log(this.props.match.params);
     const id = this.props.match.params.id;
     return (
       <Fragment>
-        <Link
+        <button
           onClick={() => this.props.deleteStream(id)}
           className="ui button negative"
         >
           Delete
-        </Link>
+        </button>
         <Link to="/" className="ui button">
           Cancel
         </Link>
@@ -39,7 +40,7 @@ class DeleteStream extends React.Component {
   render() {
     return (
       <Modal
-        title="Delete Strom"
+        title="Delete Stream"
         content={this.renderContent()}
         actions={this.renderActions()}
         onDismiss={() => history.push('/')}

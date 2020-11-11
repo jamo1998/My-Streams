@@ -1,4 +1,4 @@
-import streams from '../apis/streams';
+import * as streams from '../apis';
 import history from '../history';
 import {
   SIGN_IN,
@@ -25,46 +25,69 @@ export const signOut = () => {
 
 export const createStream = (formValues) => {
   return async (dispatch, getState) => {
-    const { userId } = getState().auth;
-    const response = await streams.post('/streams', { ...formValues, userId });
+    try {
+      const { userId } = getState().auth;
+      const response = await streams.createStream({
+        ...formValues,
+        userId,
+      });
 
-    dispatch({ type: CREATE_STREAM, payload: response.data });
-    // Returns user back to home back to home page once a stream
-    // is successfully created
-    history.push('/');
+      dispatch({ type: CREATE_STREAM, payload: response.data });
+      // Returns user back to home back to home page once a stream
+      // is successfully created
+      history.push('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
 
 export const getAllStreams = () => {
   return async (dispatch) => {
-    const response = await streams.get('/streams');
+    try {
+      const response = await streams.getStreams();
 
-    dispatch({ type: GET_ALL_STREAMS, payload: response.data });
+      dispatch({ type: GET_ALL_STREAMS, payload: response.data });
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
 
 export const getStream = (id) => {
   return async (dispatch) => {
-    const response = await streams.get(`/streams/${id}`);
+    try {
+      const response = await streams.getStream(id);
 
-    dispatch({ type: GET_STREAM, payload: response.data });
+      dispatch({ type: GET_STREAM, payload: response.data });
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
 
 export const updateStream = (id, formValues) => {
   return async (dispatch) => {
-    const response = await streams.patch(`/streams/${id}`, formValues);
+    try {
+      const response = await streams.updateStream(id, formValues);
 
-    dispatch({ type: UPDATE_STREAM, payload: response.data });
-    history.push('/');
+      dispatch({ type: UPDATE_STREAM, payload: response.data });
+      history.push('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
 
 export const deleteStream = (id) => {
   return async (dispatch) => {
-    await streams.delete(`/streams/${id}`);
+    try {
+      await streams.deleteStream(id);
 
-    dispatch({ type: DELETE_STREAM, payload: id });
-    history.push('/');
+      dispatch({ type: DELETE_STREAM, payload: id });
+      history.push('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
